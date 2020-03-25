@@ -8,18 +8,20 @@ extents = Vector2( 8.31199, 6 )
 
 [node name="World" type="Node2D"]
 
-[node name="Bush" type="StaticBody2D" parent="."]
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Player" parent="YSort" instance=ExtResource( 2 )]
+
+[node name="Bush" type="StaticBody2D" parent="YSort"]
 position = Vector2( 71.8958, 34.9549 )
 
-[node name="Sprite" type="Sprite" parent="Bush"]
+[node name="Sprite" type="Sprite" parent="YSort/Bush"]
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bush"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Bush"]
 position = Vector2( 0.104202, 5.04514 )
 scale = Vector2( 1.4437, 1 )
 shape = SubResource( 1 )
-
-[node name="Player" parent="." instance=ExtResource( 2 )]
