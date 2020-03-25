@@ -25,3 +25,23 @@ __meta__ = {
 position = Vector2( 0.104202, 5.04514 )
 scale = Vector2( 1.4437, 1 )
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bush2" type="StaticBody2D" parent="YSort"]
+position = Vector2( 283.906, 134.543 )
+
+[node name="Sprite" type="Sprite" parent="YSort/Bush2"]
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Bush2"]
+position = Vector2( 0.104202, 5.04514 )
+scale = Vector2( 1.4437, 1 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
