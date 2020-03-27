@@ -1,27 +1,50 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/World/Bush.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Shadows/LargeShadow.png" type="Texture" id=3]
+[ext_resource path="res://Assets/World/GrassBackground.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/DirtTile.tres" type="TileSet" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8.31199, 6 )
 
 [node name="World" type="Node2D"]
 
-[node name="YSort" type="YSort" parent="."]
+[node name="Background" type="Node2D" parent="."]
 
-[node name="Player" parent="YSort" instance=ExtResource( 2 )]
+[node name="Sprite" type="Sprite" parent="Background"]
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 2000 )
 
-[node name="Bush" type="StaticBody2D" parent="YSort"]
+[node name="TileMap" type="TileMap" parent="Background"]
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -393205, 0, 0, -393204, 0, 1, -393203, 0, 5, -393202, 0, 196609, -393201, 0, 6, -393200, 0, 2, -327669, 0, 65540, -327668, 0, 131073, -327667, 0, 131074, -327665, 0, 131072, -327664, 0, 196613, -327663, 0, 6, -327662, 0, 2, -262134, 0, 0, -262133, 0, 131079, -262127, 0, 131072, -262126, 0, 9, -262125, 0, 2, -196598, 0, 65536, -196597, 0, 65538, -196590, 0, 131072, -196589, 0, 9, -196588, 0, 2, -131070, 0, 0, -131069, 0, 1, -131068, 0, 1, -131067, 0, 1, -131066, 0, 1, -131065, 0, 1, -131064, 0, 1, -131063, 0, 1, -131062, 0, 131078, -131061, 0, 65538, -131053, 0, 65536, -131052, 0, 65538, -65536, 0, 0, -65535, 0, 1, -65534, 0, 131078, -65533, 0, 65541, -65532, 0, 131073, -65531, 0, 131073, -65530, 0, 131073, -65529, 0, 131073, -65528, 0, 131073, -65527, 0, 131073, -65526, 0, 131073, -65525, 0, 196613, -65524, 0, 6, -65523, 0, 2, -65517, 0, 65536, -65516, 0, 65538, 0, 0, 65536, 1, 0, 65541, 2, 0, 131073, 3, 0, 131074, 12, 0, 65536, 13, 0, 65538, 18, 0, 0, 19, 0, 131078, 20, 0, 65538, 65536, 0, 65536, 65537, 0, 65538, 65548, 0, 65536, 65549, 0, 65538, 65553, 0, 0, 65554, 0, 131078, 65555, 0, 65537, 65556, 0, 65538, 131072, 0, 65536, 131073, 0, 65538, 131084, 0, 131072, 131085, 0, 65543, 131089, 0, 65536, 131090, 0, 65537, 131091, 0, 65541, 131092, 0, 131074, 262143, 0, 0, 196608, 0, 131078, 196609, 0, 65538, 196621, 0, 65539, 196625, 0, 65536, 196626, 0, 65541, 196627, 0, 131074, 327679, 0, 65536, 262144, 0, 65537, 262145, 0, 65538, 262157, 0, 65539, 262160, 0, 0, 262161, 0, 131078, 262162, 0, 65538, 393215, 0, 65536, 327680, 0, 65537, 327681, 0, 65538, 327692, 0, 0, 327693, 0, 131080, 327694, 0, 1, 327695, 0, 1, 327696, 0, 131078, 327697, 0, 65537, 327698, 0, 65538, 458751, 0, 131072, 393216, 0, 65542, 393217, 0, 65538, 393227, 0, 0, 393228, 0, 131078, 393229, 0, 65537, 393230, 0, 65541, 393231, 0, 131073, 393232, 0, 65542, 393233, 0, 65537, 393234, 0, 131077, 393235, 0, 1, 393236, 0, 2, 458752, 0, 65536, 458753, 0, 65538, 458763, 0, 65536, 458764, 0, 65537, 458765, 0, 65537, 458766, 0, 65538, 458768, 0, 131072, 458769, 0, 131073, 458770, 0, 131073, 458771, 0, 131073, 458772, 0, 9, 458773, 0, 2, 524288, 0, 65536, 524289, 0, 65538, 524298, 0, 0, 524299, 0, 131078, 524300, 0, 65537, 524301, 0, 65541, 524302, 0, 131074, 524308, 0, 131072, 524309, 0, 196613, 524310, 0, 6, 524311, 0, 1, 524312, 0, 2, 589824, 0, 131072, 589825, 0, 65543, 589833, 0, 0, 589834, 0, 65545, 589835, 0, 131073, 589836, 0, 65542, 589837, 0, 65538, 589846, 0, 131072, 589847, 0, 65542, 589848, 0, 65538, 655361, 0, 131076, 655362, 0, 2, 655368, 0, 0, 655369, 0, 65545, 655370, 0, 131074, 655372, 0, 131072, 655373, 0, 196613, 655374, 0, 7, 655383, 0, 65536, 655384, 0, 131077, 655385, 0, 2, 720897, 0, 131072, 720898, 0, 9, 720899, 0, 2, 720901, 0, 0, 720902, 0, 1, 720903, 0, 1, 720904, 0, 65545, 720905, 0, 131074, 720910, 0, 131076, 720911, 0, 2, 720919, 0, 65536, 720920, 0, 65537, 720921, 0, 65538, 786434, 0, 131072, 786435, 0, 196613, 786436, 0, 196609, 786437, 0, 196614, 786438, 0, 131073, 786439, 0, 131073, 786440, 0, 131074, 786446, 0, 65536, 786447, 0, 65538, 786455, 0, 65536, 786456, 0, 65541, 786457, 0, 131074, 851982, 0, 65536, 851983, 0, 65538, 851991, 0, 65536, 851992, 0, 65538, 917518, 0, 65536, 917519, 0, 131077, 917520, 0, 1, 917521, 0, 2, 917527, 0, 65536, 917528, 0, 65538, 983054, 0, 131072, 983055, 0, 131073, 983056, 0, 131073, 983057, 0, 9, 983058, 0, 1, 983059, 0, 1, 983060, 0, 1, 983061, 0, 1, 983062, 0, 5, 983063, 0, 196614, 983064, 0, 131074, 1048593, 0, 131072, 1048594, 0, 131073, 1048595, 0, 131073, 1048596, 0, 131073, 1048597, 0, 131073, 1048598, 0, 131074 )
+
+[node name="Entities" type="YSort" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource( 2 )]
+
+[node name="Bush" type="StaticBody2D" parent="Entities"]
 position = Vector2( 71.8958, 34.9549 )
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="Sprite" type="Sprite" parent="YSort/Bush"]
+[node name="Shadow" type="Sprite" parent="Entities/Bush"]
+position = Vector2( 0.104202, 5.0451 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Entities/Bush"]
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Bush"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Bush"]
 position = Vector2( 0.104202, 5.04514 )
 scale = Vector2( 1.4437, 1 )
 shape = SubResource( 1 )
@@ -29,16 +52,119 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Bush2" type="StaticBody2D" parent="YSort"]
-position = Vector2( 283.906, 134.543 )
+[node name="Bush2" type="StaticBody2D" parent="Entities"]
+position = Vector2( 95, 132 )
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="Sprite" type="Sprite" parent="YSort/Bush2"]
+[node name="Shadow" type="Sprite" parent="Entities/Bush2"]
+position = Vector2( 0.104202, 5.0451 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Entities/Bush2"]
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Bush2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Bush2"]
+position = Vector2( 0.104202, 5.04514 )
+scale = Vector2( 1.4437, 1 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bush3" type="StaticBody2D" parent="Entities"]
+position = Vector2( 303, 196 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Shadow" type="Sprite" parent="Entities/Bush3"]
+position = Vector2( 0.104202, 5.0451 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Entities/Bush3"]
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Bush3"]
+position = Vector2( 0.104202, 5.04514 )
+scale = Vector2( 1.4437, 1 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bush4" type="StaticBody2D" parent="Entities"]
+position = Vector2( 384, 87 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Shadow" type="Sprite" parent="Entities/Bush4"]
+position = Vector2( 0.104202, 5.0451 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Entities/Bush4"]
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Bush4"]
+position = Vector2( 0.104202, 5.04514 )
+scale = Vector2( 1.4437, 1 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bush5" type="StaticBody2D" parent="Entities"]
+position = Vector2( 241, -37 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Shadow" type="Sprite" parent="Entities/Bush5"]
+position = Vector2( 0.104202, 5.0451 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Entities/Bush5"]
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Bush5"]
+position = Vector2( 0.104202, 5.04514 )
+scale = Vector2( 1.4437, 1 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Bush6" type="StaticBody2D" parent="Entities"]
+position = Vector2( -17, -50 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Shadow" type="Sprite" parent="Entities/Bush6"]
+position = Vector2( 0.104202, 5.0451 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Entities/Bush6"]
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Bush6"]
 position = Vector2( 0.104202, 5.04514 )
 scale = Vector2( 1.4437, 1 )
 shape = SubResource( 1 )
