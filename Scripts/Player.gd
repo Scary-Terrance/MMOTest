@@ -11,7 +11,8 @@ onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 
 # Exports
-export var websocket_url = "ws://127.0.0.1:9001"
+# "ws://echo.websocket.org"
+export var websocket_url = "ws://127.0.0.1:9001" 
 
 # Class Variables
 var _client = WebSocketClient.new()
@@ -30,7 +31,7 @@ func _ready():
 
 	# Initiate connection to the given URL.
 	var err = _client.connect_to_url(websocket_url)
-	if err == 0:
+	if err != OK:
 		print("Unable to connect")
 		set_physics_process(false)
 

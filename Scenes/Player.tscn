@@ -5,7 +5,7 @@
 [ext_resource path="res://Assets/Shadows/MediumShadow.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5, 6 )
+extents = Vector2( 10, 6 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle_down"
@@ -228,9 +228,6 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle_down = SubResource( 2 )
