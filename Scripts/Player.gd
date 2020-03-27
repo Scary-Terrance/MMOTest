@@ -44,12 +44,9 @@ func _closed(was_clean = false):
 	set_process(false)
 
 func _connected(proto = ""):
-	# This is called on connection, "proto" will be the selected WebSocket
-	# sub-protocol (which is optional)
-	print("Connected with protocol: ", proto)
 	# You MUST always use get_peer(1).put_packet to send data to server,
 	# and not put_packet directly when not using the MultiplayerAPI.
-	_client.get_peer(1).put_packet("Hello Server!".to_utf8())
+	_send_packet(Vector2(0.0, 0.0))
 
 func _on_data():
 	# Print the received packet, you MUST always use get_peer(1).get_packet
@@ -59,7 +56,8 @@ func _on_data():
 
 func _send_packet(input_vector):
 	# Structure the packet
-	var packet = "i%s v%s" % [input_vector, velocity]
+	var packet = "i%.2f %.2f v%.2f %.2f" % [input_vector.x, input_vector.y, velocity.x, velocity.y]
+	packet += " p%.2f %.2f" % [self.position.x, self.position.y]
 	# Put the packet in the queu to send
 	_client.get_peer(1).put_packet(packet.to_utf8())
 	
@@ -94,3 +92,7 @@ func _physics_process(delta):
 	
 	# Send / Read packets with the server
 	_client.poll()
+
+# Called when entity despawned
+func _exit_tree():
+	_client.disconnect_from_host()
