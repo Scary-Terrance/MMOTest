@@ -11,10 +11,10 @@ fn main() {
     for stream in server.incoming() {
         spawn (move || {
             let mut websocket = accept(stream.unwrap()).unwrap();
-            println!("{}", websocket);
+            //println!("{}", websocket);
             loop {
                 let msg = websocket.read_message().unwrap();
-                
+                println!("{}", msg);
                 // We do not want to send back ping/pong messages.
                 if msg.is_binary() || msg.is_text() {
                     websocket.write_message(msg).unwrap();
