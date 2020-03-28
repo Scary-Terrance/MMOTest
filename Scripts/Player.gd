@@ -4,6 +4,7 @@ extends KinematicBody2D
 const ACCELERATION = 500
 const MAX_SPEED = 80
 const FRICTION = 500
+const NETFPS = 0.1
 
 # Onready Variables
 onready var amimationPlayer = $AnimationPlayer
@@ -17,6 +18,7 @@ export var websocket_url = "ws://127.0.0.1:9001"
 # Class Variables
 var _client = WebSocketClient.new()
 var velocity = Vector2.ZERO
+var netTime = NETFPS
 
 # Runs once on entity initialization
 func _ready():
@@ -47,7 +49,7 @@ func _connected(proto = ""):
 	print("Connected with protocol: ", proto)
 	# You MUST always use get_peer(1).put_packet to send data to server,
 	# and not put_packet directly when not using the MultiplayerAPI.
-	_client.get_peer(1).put_packet("Test packet".to_utf8())
+	_client.get_peer(1).put_packet("Hello Server!".to_utf8())
 
 func _on_data():
 	# Print the received packet, you MUST always use get_peer(1).get_packet
@@ -55,7 +57,12 @@ func _on_data():
 	# using the MultiplayerAPI.
 	print("Got data from server: ", _client.get_peer(1).get_packet().get_string_from_utf8())
 
-
+func _send_packet(input_vector):
+	# Structure the packet
+	var packet = "i%s v%s" % [input_vector, velocity]
+	# Put the packet in the queu to send
+	_client.get_peer(1).put_packet(packet.to_utf8())
+	
 # Runs every physics tick
 func _physics_process(delta):	
 	# Calculate input_vector from user inputs
@@ -79,7 +86,11 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	velocity = move_and_slide(velocity)
-	# Build a packet to send to the server
-
+	netTime -= delta
+	if netTime <= 0:
+		netTime = NETFPS
+		# Build a packet to send to the server
+		_send_packet(input_vector)
+	
 	# Send / Read packets with the server
 	_client.poll()
