@@ -1,3 +1,12 @@
+// Struct for users
+struct Player {
+    username: String,
+    email: String,
+    pos: f64,
+    vel: f64,
+    inp: f64,
+}
+
 fn main() {
     use std::net::TcpListener;
     use std::thread::spawn;

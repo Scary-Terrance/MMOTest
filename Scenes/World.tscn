@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/World/GrassBackground.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/DirtTile.tres" type="TileSet" id=5]
 [ext_resource path="res://Scenes/Cliff.tres" type="TileSet" id=6]
+[ext_resource path="res://Scenes/Bat.tscn" type="PackedScene" id=7]
 
 [node name="World" type="Node2D"]
 
@@ -31,6 +32,9 @@ tile_data = PoolIntArray( -589842, 0, 0, -589841, 0, 1, -589840, 0, 1, -589839, 
 [node name="Entities" type="YSort" parent="."]
 
 [node name="Player" parent="Entities" instance=ExtResource( 2 )]
+
+[node name="Bat" parent="Entities" instance=ExtResource( 7 )]
+position = Vector2( 125, 35 )
 
 [node name="Bush" parent="Entities" instance=ExtResource( 1 )]
 
