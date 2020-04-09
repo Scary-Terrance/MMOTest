@@ -14,8 +14,8 @@ struct Server {
     out: Sender,
     count: Rc<Cell<u32>>,
     id: u32,
-    chOut: mpsc::Sender<String>,
-    chIn:  Arc<Mutex<mpsc::Receiver<String>>>
+    t_game: mpsc::Sender<String>,
+    r_server:  Arc<Mutex<mpsc::Receiver<String>>>
 }
 
 struct _Player {
@@ -38,15 +38,12 @@ impl Handler for Server {
     fn on_message(&mut self, msg: Message) -> Result<()> {
         let data = msg.to_string();
         // Send Data to main thread
-        println!("{:?}", data);
-        self.chOut.send(data).unwrap();
+        self.t_game.send(data).unwrap();
         // Recieve data from main thread
-        let inMSG = self.chIn.lock().unwrap().try_recv();
-        if !inMSG.is_err() {
-            println!("Connection ID {}: {:?}", self.id, inMSG.unwrap());
+        let out_msg = self.r_server.lock().unwrap().try_recv();
+        if !out_msg.is_err() {
+            println!("Connection ID {}: {:?}", self.id, out_msg.unwrap());
         }
-        // Echo the message back
-        self.out.send(msg)
     }
 
     fn on_close(&mut self, code: CloseCode, reason: &str) {
@@ -69,9 +66,9 @@ impl Handler for Server {
 
 fn main() {
     // Channels for sending data to / from the server
-    let (tGame, rGame): (mpsc::Sender<String>, mpsc::Receiver<String>) = mpsc::channel();
-    let (tServer, rServer): (mpsc::Sender<String>, mpsc::Receiver<String>) = mpsc::channel();
-    let receiver = Arc::new(Mutex::new(rServer));
+    let (t_game, r_game): (mpsc::Sender<String>, mpsc::Receiver<String>) = mpsc::channel();
+    let (t_server, r_server): (mpsc::Sender<String>, mpsc::Receiver<String>) = mpsc::channel();
+    let receiver = Arc::new(Mutex::new(r_server));
     // Spawn a thread for our Server
     let server = thread::spawn(move || {
         // Cell gives us interior mutability so we can increment
@@ -82,18 +79,18 @@ fn main() {
         let url = "127.0.0.1:9001";
         println!("Server Listening on port: {}", url);
         listen(url, |out| { Server {
-            out: out, count: count.clone(), id: count.get(), chOut: tGame.clone(),
-            chIn: Arc::clone(&receiver)
+            out: out, count: count.clone(), id: count.get(), t_game: t_game.clone(),
+            r_server: Arc::clone(&receiver)
         }}).unwrap();
     });
 
+    // Main server loop
     let running : bool = true;
     while running {
-        let received = rGame.try_recv();
+        let received = r_game.try_recv();
         if !received.is_err() {
-            tServer.send(received.unwrap()).unwrap();
+            t_server.send(received.unwrap()).unwrap();
         }
-        //tServer.send("GOTCHA".to_string()).unwrap();
     }
     // Called when all thread closes
     let _ = server.join();
