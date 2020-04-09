@@ -90,6 +90,7 @@ func _prep_packet(input_vector):
 	_update_last_packet(input_vector)
 	if netState != PASSIVE:
 		netState = PASSIVE
+	packet = packet.trim_suffix(" ")
 	return packet
 	
 func _send_packet(input_vector):
